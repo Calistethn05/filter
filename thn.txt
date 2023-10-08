@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Utilisateur; // Assurez-vous d'importer votre modèle ici
+
+class UserController extends Controller
+{
+    public function rechercherNoms(Request $request)
+    {
+        // Récupérer le terme de recherche depuis la requête
+        $termeRecherche = $request->input('terme_recherche');
+
+        // Utiliser la fonction where pour rechercher les noms qui correspondent au terme de recherche
+        $resultats = Utilisateur::where('nom', 'like', '%' . $termeRecherche . '%')->get();
+
+        // Vous pouvez maintenant utiliser les résultats comme vous le souhaitez
+        // Par exemple, les renvoyer à une vue
+        return view('resultats_recherche', ['resultats' => $resultats]);
+    }
+}
+
+
